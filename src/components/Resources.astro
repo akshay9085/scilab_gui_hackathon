@@ -1,230 +1,168 @@
 ---
-const props = Astro.props
-var accordionContent = await Astro.glob("../content/resourcesPage/*.md");
-var links = await Astro.glob("../content/resourcesPage/*.md");
+type ResourceItem = {
+  name: string;
+  link?: string;
+};
+
+type ResourceSection = {
+  heading: string;
+  items: ResourceItem[];
+};
+
+const resourceSections: ResourceSection[] = [
+  {
+    heading: "Scilab",
+    items: [
+      {
+        name: "Download Scilab",
+        link: "https://www.scilab.org/download",
+      },
+      {
+        name: "Completed Scilab case studies",
+        link: "https://scilab.in/case-study-project/completed-case-studies",
+      },
+    ],
+  },
+  {
+    heading: "Scilab GUI Spoken Tutorials",
+    items: [
+      {
+        name: "GUI in Scilab tutorial series",
+        link: "https://spoken-tutorial.org/tutorial-search/?search_foss=GUI+in+Scilab&search_language=English",
+      },
+      {
+        name: "Scilab tutorial series",
+        link: "https://spoken-tutorial.org/tutorial-search/?search_foss=Scilab&search_language=English",
+      },
+    ],
+  },
+  {
+    heading: "Submission Checklist",
+    items: [
+      { name: "Source code" },
+      { name: "README/documentation" },
+      { name: "Short demo video (less than 2 minutes)" },
+      { name: "Problem statement" },
+      { name: "GUI screenshots" },
+      { name: "Sample outputs/results" },
+    ],
+  },
+];
 ---
-<!-- <base target="_blank"> -->
-<section class="bg-code items-center">
-    <div class="resources-main backdrop-blur-xl">
-        <div class="">
-            <h1 class="section-title items-center text-center">Resources</h1>
-            <h4 class=" text-white m-3">Candidates are encouraged to refer to the resources and get an overview of the suitable desktop application framework/technologies according to their tech stack. Candidates are also requested to contact us in case they need help finding resources for their tech stack for the workshop. </h4>
-        </div>
-<div class="grid md:grid-cols-2 bg-transparent">
-{
-  accordionContent.map((item)=>{
-  const Content = item.Content;
-  return(
-    <div class="faq"> 
-      <div class="question">
-        <h3>{item.frontmatter.heading}</h3>
-        <svg width = '15' height = '10' viewBox = '0 0 42 25'>
-            <path d = 'M3 3L21 21L39 3' stroke = 'white' stroke-width="7" stroke-linecape="round" /> 
-          </svg> 
-      </div>
-      <div class="answer overflow-scroll h-32">
-        {/* <Content /> */}
-        {item.frontmatter.item && (
-            <ul class="ml-5 mt-2">
-              {item.frontmatter.item.map((p:any, index:number) => (
-                <li class="bg-none backdrop-blur-none text-white">{index+1}{". "}
-                  <a href={p.link} class="text-blue-500 hover:underline" target="_blank">
-                    {p.name}
-                  </a>
+
+<section class="resources-section items-center" id="resources">
+  <div class="resources-main">
+    <div>
+      <h1 class="section-title items-center text-center">Resources</h1>
+      <p class="resource-copy m-3 text-justify">
+        Candidates are encouraged to refer to the resources and understand Scilab GUI tools before selecting a project idea.
+      </p>
+    </div>
+
+    <div class="resource-grid">
+      {resourceSections.map((section) => (
+        <details class="faq">
+          <summary class="question">
+            <h3>{section.heading}</h3>
+          </summary>
+          <div class="answer">
+            <ul class="ml-5 mt-2 list-disc">
+              {section.items.map((item) => (
+                <li>
+                  {item.link ? (
+                    <a href={item.link} class="resource-link hover:underline" target="_blank" rel="noopener noreferrer">
+                      {item.name}
+                    </a>
+                  ) : (
+                    item.name
+                  )}
                 </li>
               ))}
             </ul>
-          )}
-      </div>
+          </div>
+        </details>
+      ))}
     </div>
-   )})
- }
-<!-- <div id="py" class="h-100">100vh</div> -->
- </div>
- </div>
+  </div>
 </section>
 
-
 <style>
-  
-  .section-title{
-    color: #ffffff;
-  }
-.bg-code{
-  /* background: url(../assets/img/code-bg.png) fixed; */
-  background: #0a4850;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: left;
-}
-.resources-main{
-        margin: 3vh;
-        width: 70%;
-        overflow-y: hidden;
-       /* backdrop-filter: blur(19px); */
-       background-color: rgba(255, 255, 255, 0.2);
-    }
-    .resources-heading h1{
-        color: rgb(153, 153, 255);
-        font-size: 7.5vh;
-        padding: 3vh 21%;
-        font-weight: 700;
-    }
-    .resources-heading:hover{
-        color: rgb(1, 44, 80);
-    }
-    @media screen and (max-width: 983px) {
-      .resources-main{
-        width: 95%;
-      }
-        .resources-heading h1{
-            font-size: 4.5vh;
-            padding: 3vh 10%;
-            margin-top: 10vh;
-            text-align: center;
-        }
-    }
-
-  section{
+  .resources-section {
     display: flex;
     flex-direction: column;
-    margin : 0 auto;
-    width: 100% !important; 
+    width: 100% !important;
+    margin: 0 auto;
+    padding: clamp(3rem, 6vw, 5.5rem) 1rem;
+    background:
+      linear-gradient(135deg, rgba(56, 213, 255, 0.08), rgba(202, 255, 0, 0.035)),
+      var(--color-brand-bg);
   }
 
+  .resources-main {
+    width: min(1120px, 100%);
+    overflow-y: hidden;
+    border: 1px solid rgba(56, 213, 255, 0.22);
+    border-radius: 8px;
+    background: linear-gradient(180deg, rgba(15, 32, 55, 0.9), rgba(8, 17, 31, 0.96));
+    padding: clamp(1rem, 3vw, 2rem);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+  }
 
+  .resource-copy,
+  .answer li {
+    color: var(--color-brand-text);
+  }
 
-  .question{
+  .resource-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: 1rem;
+    background: transparent;
+  }
+
+  .question {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: #ffe600;
-    background-color: rgba(0, 0, 0, .02); 
+    color: var(--color-brand-yellow);
+    background-color: rgba(202, 255, 0, 0.06);
     padding: 1rem 2rem;
+    cursor: pointer;
   }
 
-  .question h3{
+  .question h3 {
     font-size: 1.3rem;
   }
 
-  .question h3:hover{
-    text-decoration: underline;
-    color: #1662b8;
-  }
-  .faq.active .question h3{
-    text-decoration:none;
-    color: #5ea9ff;
+  .answer {
+    padding: 0.75rem 2rem 1rem;
   }
 
-  .answer{
-    max-height: 0;
-    overflow-y: scroll;
-    transition: max-height 0.8s ease;
-    scrollbar-color: rgb(144, 240, 255) rgb(134, 134, 134);
-  }
-
-  /* .answer ul {
-    padding: 1vh 3vh;
-    font-size: 1rem;
-    margin: 0;
-    line-height: 1.6;
-    color: black;
-    font-weight: 500;
-    background-color: rgba(255, 255, 255, 0.247);
-    backdrop-filter: blur(23px);
-  } */
-
-  .answer ul li a{
-    color: rgb(0, 217, 255);
-    text-decoration: none;
-  }
-
-  .answer ul li a:hover{
-    text-decoration: underline;
-    color: rgb(147, 255, 228);
-  }
-
-  .faq.active .answer{
-    max-height: 300px;
-    animation: fade 1s ease-in-out;
-  }
-
-  .faq.active svg{
-    transform: rotate(180deg);
-  }
-
-  svg{
-    display: none;    /* If you want an icon besides the accordion, remove this line */
-    transition: transform 0.5s ease-in;
-  }
-
-  @keyframes fade {
-    from{
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to{
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  .faq{
+  .faq {
     max-width: 100%;
-    cursor: pointer;
-    border: 1px solid #f6f4f4;
+    border: 1px solid rgba(56, 213, 255, 0.22);
+    border-radius: 8px;
+    overflow: hidden;
+    background: rgba(5, 11, 24, 0.48);
   }
-  @media screen and (max-width: 768px){
-    .faq{
-    max-width: 90%;
-    cursor: pointer;
-    border: 1px solid #f6f4f4;
+
+  .resource-link {
+    color: var(--color-brand-cyan);
   }
-    .answer p{
-      padding: 0.4vh 3vh;
-      font-size: 1rem;
-      line-height: 1.6;
-      margin: 0;
+
+  .resource-link:hover {
+    color: var(--color-brand-yellow);
+  }
+
+  @media screen and (max-width: 983px) {
+    .resources-main {
+      width: 95%;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .faq {
+      max-width: 90%;
     }
   }
 </style>
-
-
-<script>
-
-
-  // this is for the styling of the accordion
-  var answers = Array.from(document.getElementsByClassName("answer"));
-  answers.forEach(answer => {
-    const anchors = answer.querySelectorAll("ul li a");
-    const lists = answer.querySelectorAll("ul li");
-    anchors.forEach(anchor => {
-      anchor.classList.add("text-[#17a2b8]", "no-underline", "hover:underline", "hover:text-[#0e8fa3]");
-    });
-
-    lists.forEach((list)=>{
-      list.classList.add("py-1", "px-3", "text-base", "m-0", "text-black", "font-bold",);
-    })
-});
-      
-  // this is for the accordion
-  const faqs = document.querySelectorAll('.faq');
-faqs.forEach(faq => {
-  faq.addEventListener('click', () => {
-    // If this accordion is already active, remove 'active' class from all
-    if (faq.classList.contains('active')) {
-      faq.classList.remove('active');
-    } else {
-      // Otherwise, close all accordions and open the clicked one
-      faqs.forEach(f => f.classList.remove('active'));
-      faq.classList.add('active', 'text-blue-300');
-    }
-  });
-});
-
-
-</script>
-
-
-
-
-

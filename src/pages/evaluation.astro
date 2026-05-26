@@ -1,26 +1,27 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
-import Nav from '../components/layout/Nav.astro';
-import HomeBody from '../components/HomeBody.astro';
+import Layout from "../layouts/Layout.astro";
+
+const evaluationCriteria = [
+  "GUI design and interactivity",
+  "Problem relevance and innovation",
+  "Functionality and correctness",
+  "Use of Scilab GUI components and concepts",
+  "Code readability and structure",
+  "Documentation quality",
+  "Creativity and overall implementation quality",
+];
 ---
 
-<Layout title="Scilab Case Study Hackathon">
-<!-- <div class="grid grid-cols-1 md:grid-cols-2 gap-0 bg-gray-200 "> -->
-    <div class="md:px-4 pb-5">
-      <div class="md:px-20 px-3">
-        <h1 class="text-center section-title pl-4" id="evaluation">Evaluation Criteria</h1>
-        <ul class="list-disc list-inside space-y-2 pt-4">
-    <li>Complexity of the problem, including its technical depth and challenges. &nbsp;</li>
-    <li>Quality of the journal, considering its credibility and impact factor. &nbsp;</li>
-    <li>Novelty of the topic, focusing on originality and innovation. &nbsp;&nbsp;</li>
-    <li>Accuracy of the reproduced results compared to the reference paper. &nbsp;</li>
-    <li>Effective and innovative use of Scilab features and toolboxes. &nbsp;</li>
-    <li>Readability, proper documentation, and adherence to best coding practices. &nbsp;</li>
-    </ul>
-      </div>
+<Layout title="Scilab GUI Hackathon Evaluation Criteria">
+  <section class="md:px-4 pb-8">
+    <div class="md:px-20 px-3">
+      <h1 class="text-center section-title pl-4" id="evaluation">Evaluation Criteria</h1>
+      <ul class="list-disc list-inside space-y-2 pt-4">
+        {evaluationCriteria.map((criterion) => <li>{criterion}</li>)}
+      </ul>
+      <p class="mt-4">
+        Many other criteria may also be considered during the evaluation process.
+      </p>
     </div>
-  
-    
-  <!-- </div> -->
+  </section>
 </Layout>

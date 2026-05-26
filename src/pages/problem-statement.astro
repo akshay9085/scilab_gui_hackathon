@@ -1,98 +1,85 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
-import Nav from '../components/layout/Nav.astro';
-import HomeBody from '../components/HomeBody.astro';
+import Layout from "../layouts/Layout.astro";
+
+const themes = [
+  {
+    name: "Interactive STEM Education",
+    description:
+      "Build an app that helps users learn mathematics, physics, electronics, or engineering concepts through interactive visual explanations.",
+  },
+  {
+    name: "Data Visualization Dashboards",
+    description:
+      "Create GUI apps that load CSV data, perform statistics, and display results with interactive plots.",
+  },
+  {
+    name: "Finance & Business Calculators",
+    description:
+      "Develop practical financial tools that perform calculations, compare scenarios, analyze trends, and support informed decisions through intuitive GUI interfaces.",
+  },
+  {
+    name: "Science & Engineering Simulators",
+    description:
+      "Simulate real-world scientific or engineering systems where users can modify parameters and observe dynamic system behavior in real time.",
+  },
+  {
+    name: "Utility & Productivity Apps",
+    description: "Create general-purpose tools that save time or simplify complex operations.",
+  },
+];
+
+const encouragedItems = [
+  "Original UI design",
+  "Educational usefulness",
+  "Scientific visualization",
+  "Interactive problem-solving applications",
+  "Creativity and innovation using Scilab GUI tools",
+];
+
+const discouragedItems = [
+  "Directly copied applications from tutorials",
+  "Basic calculators or plotting examples without innovation",
+  "Applications with minimal GUI interaction",
+];
 ---
 
-<Layout title="Scilab Case Study Hackathon">
-<div class=" md:px-4 pb-5">
+<Layout title="Scilab GUI Hackathon Themes">
+  <section class="md:px-4 pb-8">
     <div class="md:px-20 px-3">
-      <h1 class=" text-center section-title mx-4 mb-5" id="problem-statement">
-        Problem Statement
+      <h1 class="text-center section-title mx-4 mb-5" id="problem-statement">
+        Themes
       </h1>
-   
-      <p class="leading-relaxed mb-4">Choosing a problem statement for your Scilab case study:</p>
-<ul class="list-disc list-outside space-y-1">
-        <li>Select a research paper as a reference published in a recognized and reputable journal or presented at a reputed conference.</li>
-        <li>Reproduce its results using Scilab.</li>
-        <li>Present the Scilab-based solution, workflow, and comparison with the original results along with a report.<br /><br />Here are some suggested domains for the Hackathon:<br /></li>
-        </ul>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {themes.map((theme) => (
+          <article class="bg-gray-100 p-5 rounded-lg shadow-sm border border-gray-200">
+            <h2 class="text-xl font-semibold text-[#0a4850]">{theme.name}</h2>
+            <p class="mt-2 text-justify">{theme.description}</p>
+          </article>
+        ))}
+      </div>
     </div>
-  </div>
+  </section>
 
-<div class="md:px-4 pb-5 border-l-2 border-white">
+  <section class="md:px-4 pb-8 bg-gray-50">
     <div class="md:px-20 px-3">
-      <!--<h1 class=" text-center section-title mx-4 mb-5" id="topics">
-        Case study topics can be chosen from the following domains for the Hackathon
-      </h1>-->
-   
-        <!-- Card 1 -->
-        <ul class="list-disc list-outside space-y-1">
-          <li>Robotics and Autonomous Systems</li>
-          <li>Data Analytics and Machine Learning</li>
-          <li>Artificial Intelligence and Optimization</li>
-          <li>Renewable Energy and Sustainability</li>
-          <li>Computational Biology and Healthcare Analytics</li>
-          <li>Control Systems</li>
-          <li>Space and Aerospace Simulations</li>
-          <li>Digital Signal and Image Processing</li>
-<li>   <p><mark>Any other domain/topic can also be proposed (subject to approval by IIT Bombay-FOSSEE-Scilab team)</mark></p></li>
+      <h1 class="text-center section-title mx-4 mb-5">Important Note</h1>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <h2 class="font-bold text-lg mb-2 text-[#0a4850]">Participants are encouraged to focus on</h2>
+          <ul class="list-disc list-outside pl-5 space-y-1">
+            {encouragedItems.map((item) => <li>{item}</li>)}
           </ul>
-  
-    </div>
-
- <div class="md:px-4 pb-5">
-      <div class="md:px-20 px-3">
-        <h1 class="text-center section-title mx-4 px-4 mb-5" id="system-requirement">System Requirement</h1>
-    
-       
-    
-        <!-- Grid Container for Two Columns and Three Cards in Second Row -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          
-          <!-- Linux Section Card -->
-          <div class="bg-gray-100 p-5 rounded-lg shadow-md">
-            <h4 class="text-xl font-semibold mb-1"><strong>Linux:</strong></h4>
-            <ul class="space-y-1">
-              <li><h3>OS: Ubuntu 22.04+ </h3></li>
-              <li><h3>Scilab: <a target="_blank"  href="https://www.scilab.org/download" class="text-blue-500 hover:underline">Download latest version</a></h3></li>
-            </ul>
-          </div>
-    
-          <!-- Mac Section Card -->
-          <div class="bg-gray-100 p-5 rounded-lg shadow-md">
-            <h4 class="text-xl font-semibold mb-1"><strong>Mac:</strong></h4>
-            <ul class="space-y-1">
-              <li><h3>OS: macOS 10.13+</h3></li>
-              <li><h3>Scilab: <a target="_blank" href="https://www.scilab.org/download" class="text-blue-500 hover:underline">Download latest version</a></h3></li>
-            </ul>
-          </div>
-    
-          <!-- Windows Section Card -->
-          <div class="bg-gray-100 p-5 rounded-lg shadow-md">
-            <h4 class="text-xl font-semibold mb-1"><strong>Windows:</strong></h4>
-            <ul class="space-y-1">
-              <li><h3>OS: Windows 10 or 11</h3></li>
-            </ul>
-            <p>Scilab: <a target="_blank"  href="https://www.scilab.org/download" class="text-blue-500 hover:underline">Download latest version</a></p>
-          </div>
-    
         </div>
-         <!-- General Section Card centered -->
-         <div class="bg-gray-100 p-5 rounded-lg shadow-md max-w-md mx-auto my-4">
-          <h4 class="text-xl font-semibold mb-1"><strong>General:</strong></h4>
-          <ul class="space-y-1">
-            <li><h3><strong>RAM:</strong> 4 GB (8 GB recommended)</h3></li>
-            <li><h3><strong>Processor:</strong> Dual-core or higher</h3></li>
-            <li><h3><strong>Storage:</strong> 2 GB free space</h3></li>
-            <li><h3><strong>Internet:</strong> Stable connection</h3></li>
+        <div>
+          <h2 class="font-bold text-lg mb-2 text-[#0a4850]">The following are discouraged</h2>
+          <ul class="list-disc list-outside pl-5 space-y-1">
+            {discouragedItems.map((item) => <li>{item}</li>)}
           </ul>
         </div>
       </div>
+      <p class="mt-5 text-justify">
+        The Spoken Tutorials already cover introductory calculator and plotting examples. Participants are encouraged to creatively extend these concepts and develop original applications.
+      </p>
     </div>
-    
-   
-
+  </section>
 </Layout>
-

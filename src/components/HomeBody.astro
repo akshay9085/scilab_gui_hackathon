@@ -1,505 +1,347 @@
 ---
-const props = Astro.props
-// import Carousel from './Carousel.astro'
-// import 'bootstrap/dist/css/bootstrap.css'
-// import faqJson from '../../public/jsonData/faq.json'
-// import homeJson from '../../public/jsonData/home.json'
-
-// interface Coreteam{
-//     name : string;
-//     position : string[];
-//     institute : string;
-// }
-
-// interface Significance{
-//     intro : string;
-//     point: string[];
-//     end: string;
-// }
-
-// interface PartnerAndOrganisations{
-//     name: string;
-//     description: string;
-// }
-
-// interface Faq{
-//     question: string;
-//     answer: string;
-// }
-
-// interface Home{
-//     significance: Significance[];
-//     purpose: string[];
-//     partners: PartnerAndOrganisations[];
-//     coreteam: Coreteam[];
-// }
-
-// const homeData : Home = homeJson;
-// const faqData : Faq[] = faqJson;
-
-//importing content from markdown files
-import Dates from "./Dates.astro";
-
-import Resources from "./Resources.astro";
 import Hero from "./Hero.astro";
-const paraContent = await Astro.glob("../content/aboutpara/*.md");
-// const dateContent = await Astro.glob("../content/dates/*.md");
-const coreTeamContent = await Astro.glob("../content/homePage/coreTeam/*.md");
-const partnerContent = await Astro.glob("../content/homePage/partner/*.md");
-const purposeContent = await Astro.glob("../content/homePage/purpose/*.md");
-const significanceContent = await Astro.glob("../content/aboutpara/significance/*.md");
-const faqContent = await Astro.glob("../content/faq/*.md");
 import iitb from "../assets/img/IITB.png";
 import fossee from "../assets/img/FOSSEE.png";
 import st from "../assets/img/spoken.png";
-import process from "../assets/img/process.png";
 import Nmeict from "../assets/img/NMEICT -logo.png";
 import Moe from "../assets/img/MOE-logo.png";
+
+const importantDates = [
+  { event: "Registration Opens", date: "01 June 2026" },
+  { event: "Hackathon Start Date", date: "01 July 2026" },
+  { event: "Submission Deadline", date: "31 July 2026" },
+  { event: "Results Announcement", date: "24 August 2026 (Tentative)" },
+];
+
+const themes = [
+  {
+    name: "Interactive STEM Education",
+    description:
+      "Build an app that helps users learn mathematics, physics, electronics, or engineering concepts through interactive visual explanations.",
+  },
+  {
+    name: "Data Visualization Dashboards",
+    description:
+      "Create GUI apps that load CSV data, perform statistics, and display results with interactive plots.",
+  },
+  {
+    name: "Finance & Business Calculators",
+    description:
+      "Develop practical financial tools that perform calculations, compare scenarios, analyze trends, and support informed decisions through intuitive GUI interfaces.",
+  },
+  {
+    name: "Science & Engineering Simulators",
+    description:
+      "Simulate real-world scientific or engineering systems where users can modify parameters and observe dynamic system behavior in real time.",
+  },
+  {
+    name: "Utility & Productivity Apps",
+    description: "Create general-purpose tools that save time or simplify complex operations.",
+  },
+];
+
+const encouragedItems = [
+  "Original UI design",
+  "Educational usefulness",
+  "Scientific visualization",
+  "Interactive problem-solving applications",
+  "Creativity and innovation using Scilab GUI tools",
+];
+
+const discouragedItems = [
+  "Directly copied applications from tutorials",
+  "Basic calculators or plotting examples without innovation",
+  "Applications with minimal GUI interaction",
+];
+
+const deliverables = [
+  "Source code",
+  "README/documentation",
+  "Short demo video (less than 2 minutes)",
+  "Problem statement",
+  "GUI screenshots",
+  "Sample outputs/results",
+];
+
+const evaluationCriteria = [
+  "GUI design and interactivity",
+  "Problem relevance and innovation",
+  "Functionality and correctness",
+  "Use of Scilab GUI components and concepts",
+  "Code readability and structure",
+  "Documentation quality",
+  "Creativity and overall implementation quality",
+];
+
+const eligibility = [
+  "Open only to individual participants. Team participation is not allowed.",
+  "Students, researchers, educators, and professionals passionate about numerical computation and application development are eligible to participate.",
+  "Participants should have a basic understanding of programming and computational tools.",
+];
+
+const participationSteps = [
+  {
+    step: "Step 1",
+    description: "Register through the official Google Form. The link will be added soon.",
+  },
+  {
+    step: "Step 2",
+    description: "Explore the Scilab GUI Spoken Tutorials and select a project idea.",
+    link: "https://spoken-tutorial.org/tutorial-search/?search_foss=GUI+in+Scilab&search_language=English",
+  },
+  {
+    step: "Step 3",
+    description: "Develop the GUI application using Scilab.",
+  },
+  {
+    step: "Step 4",
+    description:
+      "Upload the final project with all required deliverables to your drive link and keep access open.",
+  },
+  {
+    step: "Step 5",
+    description: "Submit before the deadline.",
+  },
+];
+
+const rules = [
+  "The application must use at least three distinct GUI components.",
+  "All submitted source code must be original. Plagiarism or direct copying from online Scilab repositories will lead to disqualification.",
+  "The same participant cannot submit multiple entries.",
+  "All approved and completed submissions will be published as open-source projects.",
+  "Any participant found engaging in malpractice or unfair means will be immediately disqualified.",
+  "The decision of the review committee and organizers will be final and binding. No queries regarding the results will be entertained.",
+];
+
+const benefits = [
+  "Free registration and open participation",
+  "Hands-on experience in developing GUI applications using Scilab",
+  "Cash prizes for top-performing projects",
+  "e-Certificates for selected submissions",
+  "Recognition for outstanding projects on the FOSSEE, IIT Bombay - Scilab website",
+  "Internship opportunities may be offered with FOSSEE, IIT Bombay for exceptional participants",
+];
+
+const rewards = [
+  { category: "First Prize", amount: "Rs. 10,000" },
+  { category: "Second Prize", amount: "Rs. 5,000" },
+  { category: "Third Prize", amount: "Rs. 3,500" },
+  { category: "Consolation Prize", amount: "Rs. 2,500" },
+];
+
+const organizers = [
+  { name: "IIT Bombay", href: "https://www.iitb.ac.in/", image: iitb },
+  { name: "FOSSEE", href: "https://fossee.in/", image: fossee },
+  { name: "Spoken Tutorial", href: "https://spoken-tutorial.org/", image: st },
+  { name: "Ministry of Education", href: "https://www.education.gov.in/", image: Moe },
+  { name: "NMEICT", href: "https://www.education.gov.in/ict-initiatives", image: Nmeict },
+];
 ---
 
-<!-- Introduction -->
 <div id="home">
-    <Hero />
-<div class="bg-gray-50 ">
-    <div class="md:px-20 px-3">
-    <h1 class=" item-center text-center section-title mx-4 px-4" id="about">About</h1>
-    <!-- <h2 class="welcome-heading"> Welcome to the Open Source Hardware IoT GIS Hackathon!</h2> -->
-    {paraContent.map((point) => {
-        return ( <p class="text-justify"> {point.frontmatter.para}</p>)})}
+  <Hero />
 
-
-    <!-- <h1 class="mt-3 font-bold text-2xl">Benefits:</h1>{
-    significanceContent.map((point) => {
-        return (
-                <ul class="md:pl-6 pl-3 list-disc" >
-                    {/* <p>{point.frontmatter.intro}</p> */}
-                    {
-                        point.frontmatter.point.map((p:string) => {
-                            return (
-                                <li  class="md:text-lg text-sm ">{p}</li>
-                            )
-                        })
-                    }
-                </ul>
-                // <p class="significance-end">{point.frontmatter.end}</p>
-            )
-        })
-        } -->
-        </div>
-</div>
-
-<!-- Important Dates -->
-<div class="bg-white md:px-4 pb-5">
-    <div class="md:px-20 px-3">
-      <h1 class="text-center section-title mx-4" id="date">
-        Important Dates
-      </h1>
-      <div class="overflow-x-auto text-left">
-        <table class="table-auto w-full border-collapse border border-gray-300 text-left">
-          <thead>
-            <tr class="bg-gray-200">
-              <th class="w-1/2 border border-gray-300 px-4 py-2">Event</th>
-              <th class="w-1/2 border border-gray-300 px-4 py-2">Date</th>
-            </tr>
-          </thead>
-          <tbody class="">
-            <tr>
-              <td class="border border-gray-300 px-4 py-2">Registration Opens</td>
-              <td class="border border-gray-300 px-4 py-2">24 December 2024</td>
-            </tr>
-            <!-- <tr class="bg-gray-50">
-              <td class="border border-gray-300 px-4 py-2">Pre-Hackathon/Inaugural Event</td>
-              <td class="border border-gray-300 px-4 py-2">TBD</td>
-            </tr> -->
-            <tr>
-              <td class="border border-gray-300 px-4 py-2">Hackathon Start Date</td>
-              <td class="border border-gray-300 px-4 py-2">24 December 2024</td>
-            </tr>
-            <tr class="bg-gray-50">
-              <td class="border border-gray-300 px-4 py-2">Submission Deadline</td>
-              <td class="border border-gray-300 px-4 py-2">20 February 2025</td>
-            </tr>
-            <tr>
-              <td class="border border-gray-300 px-4 py-2">Results Announcement</td>
-              <td class="border border-gray-300 px-4 py-2">11 April 2025</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-  
-  
-  <div class="grid grid-cols-1 md:grid-cols-1 gap-0 ">
-  <div class=" md:px-4 border-b-2 border-white border-">
-    <div class="md:px-20 px-3">
-      <h1 class="text-center section-title mx-4" id="who-can-participate">
-        Who Can Participate?
-      </h1>
-      <ul class="list-disc list-outside space-y-1">
-        <li>Open ONLY to individuals (no team participation).</li>
-        <li>Students, researchers, and professionals passionate about numerical computation.</li>
-        <li>Participants must have a basic understanding of programming and using computational tools.</li>
-      </ul>
-    </div>
-  </div>
-  
-
-
-  
-  
-
-
-
-
-  </div>
-</div>
-
-  <div class="bg-white md:px-4 pb-5">
-    <div class="md:px-20 px-3 space-x-6">
-      <h1 class=" text-center section-title mx-4 mb-5" id="register">
-        How to participate?
-      </h1>
-      
-        <!--<h1 class="font-bold text-base xl:text-xl text-gray-900 mb-4">To participate in the hackathon, please follow these mandatory steps: </h1>
-<h1 class="font-bold text-base xl:text-xl text-gray-900 mb-4">To register for the hackathon, we have a two-step registration process: </h1>-->
-        <ol class="text-justify list-decimal list-outside space-y-4">
-            <!--<li class="leading-6">
-              Before proceeding, it is mandatory to fill out this Google Form: 
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSc7sSXer3wta4B9QuT_x7xa2tx53_2uJ6PJM7t0oCdww1rPgA/viewform?usp=sf_link" 
-                   target="_blank" 
-                   class="text-red-600 hover:text-red-400  hover:underline">Click here to open</a>.
-                   Your participation will not be considered if this form is not filled out.
-
-            </li>
-            <li class="leading-6">
-              After completing the form, visit this website to read all the instructions: 
-                <a href="https://scilab.in/case-study-portal/case-study-project" 
-                   target="_blank" 
-                   class="text-red-600 hover:text-red-400   hover:underline">Click here to open</a>.
-                   Please go through all the links provided under the Case Study Project tab.
-            </li>-->
-<li>To register for the hackathon, we have a two-step registration process:
-
-<ul class="list-disc pl-5">
-  <li>
-    Step 1: Register through the Google form:
-    <ul style="list-style-type: circle; padding-left: 20px;">
-      <li>
-        To register for the hackathon, it is mandatory to fill out this Google Form:
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSc7sSXer3wta4B9QuT_x7xa2tx53_2uJ6PJM7t0oCdww1rPgA/viewform?usp=sf_link" target="_blank" class="text-blue-500 hover:text-blue-700">
-          Click here to register
-        </a>.
-      </li>
-    </ul>
-  </li>
-  <li>
-    Step 2: Submit your Case study proposal:
-    <ul style="list-style-type:  circle; padding-left: 20px;">
-      <li>
-        After filling out the Google form, visit the website:
-        <a href="https://scilab.in/case-study-portal/case-study-project" target="_blank" class="text-blue-500 hover:text-blue-700">
-          https://scilab.in/case-study-portal/case-study-project
-        </a> to read all the instructions thoroughly and submit your proposal.
-      </li>
-      <li>
-        You can find the proposal form on this link:
-        <a href="https://scilab.in/case-study-portal/procedure" target="_blank" class="text-blue-500 hover:text-blue-700">
-          https://scilab.in/case-study-portal/procedure
-        </a>. (This step is mandatory. Your registration will not be considered unless you submit a proposal)
-      </li>
-    </ul>
-  </li>
-</ul>
-
-</li>
-            <li class="">
-              <!--On the same website, you will find a Proposal Form. Fill it out for your chosen Case Study project as per the guidelines provided.<br />-->
-                <span class="font-bold">Important: When mentioning the name of your chosen case study project in the proposal form, use this format: <span class="italic">"NameOfCaseStudyProject (SCSH25)"</span></span>
-            </li>
-            <li class="">
-              Submit your proposal as per the instructions, and our team will review and approve it based on the abstract you provide. It is important that the abstract should provide a clear overview of the case study project and include a reference link to the selected case study.
-            </li>
-        </ol>
-        <p class="mt-5">By completing these steps, you will be fully registered for the hackathon.</p>
-        <div class="flex items-center content-center justify-center">
-        <img src={process.src} alt="process flow of registratin" class="object-cover py-4" style="width: 634px;"  decoding="async">
-      </div>
-      <!-- <p class="leading-relaxed mb-4 md:text-xl text-sm text-center">
-        Visit this webpage to have detailed information about the case study project and go through all the links given under the Case Study Project tab.
-        <br />Submit the proposal for your chosen Case Study project as per the guidelines, and our team will review and approve it based on the abstract provided.
-      </p>
-      <p class=" md:text-xl text-sm text-center">
-        Link: 
-        <a 
-          href="https://scilab.in/case-study-portal/case-study-project" 
-          class="text-blue-600 hover:text-blue-800 underline"
-          target="_blank"
-          rel="noopener noreferrer">
-          https://scilab.in/case-study-portal/case-study-project
-        </a>
-      </p> -->
-    </div>
-  </div>
-
-
-  
-  <div class="bg-gray-50 md:px-4 pb-5">
-    <div class="md:px-20 px-3">
-      <h1 class="text-center section-title mx-4 px-4" id="rules">Rules and Regulations</h1>
-  
-      <div class="flex flex-col justify-center text-justify space-y-3 mt-4">
-        <ul class="list-disc">
-        <li>The decision of the review committee and organizers in declaring the results will be final. No queries in this regard will be entertained.</li>
-       <li>The same person cannot participate twice.</li>
-        <!-- <li>If a person is found participating in more than one team, both the teams will be disqualified from the Hackathon.</li>
-        <li>There will be only one point of contact (the team leader) with the organizers.</li> -->
-        <li>All submitted case studies will be made publicly available as open-source projects.</li>
-        <li>Any participant found to be indulging in any form of malpractice will be immediately disqualified.</li>
-        
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class=" md:px-4 border-l-2 border-b-2 border-white pb-5">
-    <div class="md:px-20 px-3">
-      <h1 class="text-center section-title mx-4" id="why-participate">
-        Benefits
-      </h1>
-      <ul class="list-disc list-outside space-y-1">
-        <li>Free registration and open to everyone.</li>
-        <li>Gain hands-on experience with Scilab for solving real-world problems.</li>
-        <li>Win cash prize for top-performing projects.</li>
-        <li>eCertificates for good submissions.</li>
-        <li>Exclusive recognition for outstanding projects on the FOSSEE,IIT Bombay - Scilab website.</li>
-        <li>Top performers may be offered internships with FOSSEE, IIT Bombay.</li>
-        </ul>
-    </div>
-  </div>
-  <div class="max-w-lg mx-auto mt-10 p-6 bg-white rounded-lg shadow-md border">
-    <h1 class="text-center section-title mx-4 px-4" id="rules">Rewards</h1>
-    <ul class="space-y-4">
-        <li class="flex justify-between border-b pb-2">
-            <span>First Prize:</span>
-            <span class="">Rs. 10,000</span>
-        </li>
-        <li class="flex justify-between border-b pb-2">
-            <span>Second Prize:</span>
-            <span class="">Rs. 5,000</span>
-        </li>
-        <li class="flex justify-between border-b pb-2">
-            <span>Third Prize:</span>
-            <span class="">Rs. 3,500</span>
-        </li>
-        <li class="flex justify-between">
-            <span>Consolation Prize:</span>
-            <span class="">Rs. 2,500</span>
-        </li>
-    </ul>
-    <p class="mt-6">All winners will be awarded with a Certificate of Achievement</p>
-</div>
-
-
-
-
-<h2 class="text-center mb-2 section-title  hr-lines">ORGANISERS</h2>
-<footer class=" text-white mt-1 pb-4">
-    <!-- Organizers Section -->
-    
-      
-      <div class="max-w-6xl mx-auto px-4">
-      <div class="flex d-flex justify-center items-center space-x-3 mb-6 bg-white text-green-300 ">
-        <a class="hover:scale-105" href="https://www.iitb.ac.in/" target="_blank"><img  src={iitb.src} alt="IIT Bombay"  class="logos" decoding="async"></a>
-        <a class="hover:scale-105" href="https://fossee.in/" target="_blank"> <img src={fossee.src} alt="FOSSEE" class="logos"  decoding="async"></a>
-          <a class="hover:scale-105" href="https://spoken-tutorial.org/" target="_blank"> <img src={st.src} alt="Spoken Tutorial" class="logos" decoding="async"></a>
-          <a class="hover:scale-105" href="https://spoken-tutorial.org/" target="_blank"> <img src={Moe.src} alt="MOE" class="img logos" decoding="async"></a>
-          <a class="hover:scale-105" href="https://spoken-tutorial.org/" target="_blank"> <img src={Nmeict.src} alt="NMEICT" class="logos" decoding="async"></a>
-          
-      </div>
-
-</div></footer>
-
-
- <!-- <div class="grid md:grid-cols-2 background-url">
- <div>
-<Dates />
-</div>
-
-
-<div class="flex items-center justify-center" id ="eligibility">
-    <div class="">
-    <h1 class="text-4xl font-bold item-center text-center section-title">Eligibility</h1>
-   
-    <div class="regBtnContainer">
-        <p class="text-lg text-justify mx-3 px-3">Students pursuing any engineering/ non-engineering course or graduates/ freshers, who are enthusiastic about software development may apply.  While having a background in Computer Science and Engineering/Information Technology or related fields is preferable, we also consider students from other streams with strong programming skills.
-
+  <main class="site-main">
+    <section class="site-section" id="about">
+      <div class="section-inner">
+        <h1 class="text-center section-title mx-4 px-4">About</h1>
+        <p class="section-copy text-justify leading-relaxed">
+          The primary objective of the Scilab GUI Hackathon is to empower participants to transform static Scilab scripts into interactive and user-friendly applications. The hackathon aims to encourage students, educators, researchers, and professionals to develop innovative GUI-based solutions using Scilab GUI tools.
         </p>
-    </div>
+        <p class="section-copy text-justify leading-relaxed mt-4">
+          Through this hackathon, participants will gain hands-on experience in application development, problem solving, scientific computing, visualization, and open-source learning using Scilab.
+        </p>
+      </div>
+    </section>
+
+    <section class="site-section" id="date">
+      <div class="section-inner">
+        <h1 class="text-center section-title mx-4">Important Dates</h1>
+        <div class="overflow-x-auto text-left">
+          <table class="modern-table text-left">
+            <thead>
+              <tr class="bg-gray-200">
+                <th class="w-1/2 border border-gray-300 px-4 py-2">Event</th>
+                <th class="w-1/2 border border-gray-300 px-4 py-2">Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {importantDates.map((item) => (
+                <tr>
+                  <td class="border border-gray-300 px-4 py-2">{item.event}</td>
+                  <td class="border border-gray-300 px-4 py-2">{item.date}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="site-section" id="themes">
+      <div class="section-inner">
+        <h1 class="text-center section-title mx-4">Themes</h1>
+        <div class="modern-grid">
+          {themes.map((theme) => (
+            <article class="modern-card">
+              <h2 class="subsection-title font-bold text-lg">{theme.name}</h2>
+              <p class="mt-2 text-justify">{theme.description}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="site-section" id="important-note">
+      <div class="section-inner">
+        <h1 class="text-center section-title mx-4">Important Note</h1>
+        <div class="modern-grid">
+          <div class="modern-card">
+            <h2 class="subsection-title font-bold text-lg mb-2">Participants are encouraged to focus on</h2>
+            <ul class="modern-list">
+              {encouragedItems.map((item) => <li>{item}</li>)}
+            </ul>
+          </div>
+          <div class="modern-card">
+            <h2 class="subsection-title font-bold text-lg mb-2">The following are discouraged</h2>
+            <ul class="modern-list">
+              {discouragedItems.map((item) => <li>{item}</li>)}
+            </ul>
+          </div>
+        </div>
+        <p class="mt-5 text-justify">
+          The Spoken Tutorials already cover introductory calculator and plotting examples. Participants are encouraged to creatively extend these concepts and develop original applications.
+        </p>
+      </div>
+    </section>
+
+    <section class="site-section" id="submission">
+      <div class="section-inner">
+        <h1 class="text-center section-title mx-4">What Participants Must Submit</h1>
+        <ul class="modern-list two-column-list">
+          {deliverables.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <section class="site-section" id="evaluation">
+      <div class="section-inner">
+        <h1 class="text-center section-title mx-4">Evaluation Criteria</h1>
+        <ul class="modern-list">
+          {evaluationCriteria.map((item) => <li>{item}</li>)}
+        </ul>
+        <p class="mt-4">Many other criteria may also be considered during the evaluation process.</p>
+      </div>
+    </section>
+
+    <section class="site-section" id="eligibility">
+      <div class="section-inner">
+        <h1 class="text-center section-title mx-4">Eligibility</h1>
+        <ul class="modern-list">
+          {eligibility.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <section class="site-section" id="register">
+      <div class="section-inner">
+        <h1 class="text-center section-title mx-4">How to Participate</h1>
+        <div class="overflow-x-auto text-left">
+          <table class="modern-table text-left">
+            <thead>
+              <tr class="bg-gray-200">
+                <th class="w-32 border border-gray-300 px-4 py-2">Step</th>
+                <th class="border border-gray-300 px-4 py-2">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              {participationSteps.map((item) => (
+                <tr>
+                  <td class="border border-gray-300 px-4 py-2 font-semibold">{item.step}</td>
+                  <td class="border border-gray-300 px-4 py-2">
+                    {item.description}
+                    {item.link && (
+                      <a class="modern-link block mt-1 hover:underline" href={item.link} target="_blank" rel="noopener noreferrer">
+                        {item.link}
+                      </a>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="site-section" id="rules">
+      <div class="section-inner">
+        <h1 class="text-center section-title mx-4">Rules and Regulations</h1>
+        <ul class="modern-list">
+          {rules.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <section class="site-section" id="why-participate">
+      <div class="section-inner">
+        <h1 class="text-center section-title mx-4">Benefits of Participation</h1>
+        <ul class="modern-list">
+          {benefits.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <section class="site-section" id="rewards">
+      <div class="section-inner">
+        <h1 class="text-center section-title mx-4">Rewards</h1>
+        <div class="overflow-x-auto">
+          <table class="modern-table text-left">
+            <thead>
+              <tr class="bg-gray-200">
+                <th class="border border-gray-300 px-4 py-2">Prize Category</th>
+                <th class="border border-gray-300 px-4 py-2">Prize Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rewards.map((item) => (
+                <tr>
+                  <td class="border border-gray-300 px-4 py-2">{item.category}</td>
+                  <td class="border border-gray-300 px-4 py-2">{item.amount}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4">All winners will be awarded with a Certificate of Achievement.</p>
+      </div>
+    </section>
+
+    <section class="site-section" id="contact">
+      <div class="section-inner">
+        <h1 class="text-center section-title mx-4">Organisers</h1>
+        <div class="logo-strip">
+          {organizers.map((organizer) => (
+            <a href={organizer.href} target="_blank" rel="noopener noreferrer">
+              <img src={organizer.image.src} alt={organizer.name} class="logos" loading="lazy" />
+            </a>
+          ))}
+        </div>
+        <h1 class="section-title text-center">Contact Us</h1>
+        <p class="text-center text-xl">
+          For more information, email us at
+          <a href="mailto:contact@scilab.in" class="modern-link hover:underline">contact@scilab.in</a>
+        </p>
+      </div>
+    </section>
+  </main>
 </div>
-</div>
 
-</div> -->
-<!-- Registration -->
-<!-- <div class="registration-container   background-url" id ="register">
-    <h1 class="text-4xl font-bold item-center text-center section-title">Registration</h1>
-    <p class="text-center text-xl">Please click on the following button to register yourself for the competition</p>
-    <div class="items-center text-center">
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeuAU18u2mXkVZLxPeOyxfylcEn3GXYGmVdSsg37bPsUlUahw/viewform?usp=pp_url" target="_blank"><button class="custom-btn btn-15">Register</button></a>
-           
-        
-    </div>
-</div> -->
-
-
-
-<!-- <Faq /> -->
-<!-- Significance -->
-
-<!-- <div class="body-container">
-    <h1 class="intro" id = "purpose">Purpose</h1>{
-        purposeContent.map((point) => {
-            return (
-                <p class="significance-end">{point.frontmatter.desc}</p>
-            )
-        })
-    }
-</div> -->
-
-
-
-
-<!-- Partners and Organisers -->
-
-<!-- <div class="pno-container" id = "partners">
-    <h1 class="intro">Partner and Organisers</h1>
-    <div class="tech-imgs">
-       
-    </div>{
-        partnerContent.map((partner) => {
-            return (
-                <p>
-                    <span class="subheading">{partner.frontmatter.name}</span>
-                    {partner.frontmatter.description}
-                </p>
-            )
-        })
-    }
-</div> -->
-
-
-
-<!-- FAQ -->
-
-
-
-
-<!-- <Resources /> -->
-
-<!-- Core Team and Contact Us -->
-
-<div class="bg-[#e7fcff] text-center pb-10" id ="contact">
-    <h1 class="section-title text-center">Contact Us
-     
-</h1>
-
-    <p class="text-xl">
-        For more information, email us at
-    <pspan class="email">
-        <svg xmlns="http://www.w3.org/2000/svg" class="!inline-block text-xl" width="32" height="32" viewBox="0 0 32 32" {...props}>
-            <path fill="black" class="!inline-block" d="M28 6H4a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h24a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2m-2.2 2L16 14.78L6.2 8ZM4 24V8.91l11.43 7.91a1 1 0 0 0 1.14 0L28 8.91V24Z" />
-        </svg>
-        : 
-        <a href="mailto:contact@scilab.in" class="text-xl text-blue-600 hover:underline" target="_blank">contact@scilab.in</a>
-        
-    </span></p>
-  
-</div>
-
-</div>
-<!-- CSS -->
-
-  <style>
-     .logos {
-    width: 150px; /* Adjust to preferred size */
-    height: 100px; /* Maintain aspect ratio */
-    object-fit: contain; /* Ensures the image fits within the container */
-    max-height: 130px; /* Optional for uniform height */
+<style>
+  .logos {
+    width: 150px;
+    height: 100px;
+    object-fit: contain;
+    max-height: 130px;
   }
-    .background-url{
-        background: url(../assets/img/bg-01.png);
-        background-attachment: fixed;
-        background-size: cover;
-    }
-
- 
-    button {
-  margin: 20px;
-}
-.custom-btn {
-  color: #0a4850;
-  width: 25rem;
-  height: 50px;
-  /* padding: 10px 25px; */
- 
-  font-weight: 500;
-  background: transparent;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  position: relative;
-  display: inline-block;
-  font-size: larger;
-}
-@media screen and (max-width:498px) {
-    .custom-btn {
-        width: 20rem;
-        height: 50px;
-    }
-}
-    .btn-15 {
-        font-size:larger;
-        color: #0a4850;
-        color: #ffcc00;
-  border: 2px solid#00e1ff;
-  border-radius: 18px;
-  background: #fffdf3;
-  box-shadow: 2px 2px 5px #007a8a, 2px 2px 5px #007a8a inset;
-  z-index: 1;
-  font-weight: 900;
-  transition: 0.4s ease-in-out;
-  
-}
-.btn-15:after {
-  position: absolute;
-  content: "";
-  width: 0;
-  height: 100%;
-  top: 0;
-  right: 0;
- z-index: -1;
- 
-  background: #ffcc00;
-  border-radius: 18px;
-  box-shadow:
-   0 0 20px  #ffcc00;
-  transition: all 0.4s ease-in-out;
-  
-}
-.btn-15:hover {
-  color: #0a4850;
-  border: 2px solid#fff5cb;
-  font-weight: 600;
-  font-size:x-large;
-  box-shadow: 2px 2px 5px #ffcc00, 2px 2px 5px #ffcc00 inset;
-  
-}
-.btn-15:hover:after {
-  left: 0;
-  width: 100%;
-}
-.btn-15:active {
-  top: 2px;
-}
-    
-  
-  </style>
-
+</style>
